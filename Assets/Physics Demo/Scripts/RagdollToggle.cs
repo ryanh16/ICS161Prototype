@@ -33,6 +33,7 @@ public class RagdollToggle : MonoBehaviour
     private void OnCollisionEnter(Collision col)
     {
         //if collision with this object from this layer or tag, enables ragdoll
+        Debug.Log($"tag: {col.gameObject.CompareTag("Projectile")}, layer: {col.gameObject.layer}");
         if(col.gameObject.CompareTag("Projectile")  || col.gameObject.layer == 7)
         {
             enableRagdoll();
@@ -84,7 +85,7 @@ public class RagdollToggle : MonoBehaviour
         //testing that the ragdoll still works
         if(ragdollEnabled)
             enableRagdoll();
-        else
-            disableRagdoll();
+        // else
+        //     disableRagdoll();
     }
 }
