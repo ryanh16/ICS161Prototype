@@ -32,7 +32,8 @@ public class RagdollToggle : MonoBehaviour
     }
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.layer == 7)    //if collision with this layer, enables ragdoll
+        //if collision with this object from this layer or tag, enables ragdoll
+        if(col.gameObject.CompareTag("Projectile")  || col.gameObject.layer == 7)
         {
             enableRagdoll();
         }

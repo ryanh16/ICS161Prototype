@@ -313,6 +313,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ragdoll Dummy
       objectReference: {fileID: 0}
+    - target: {fileID: 3713545813488488620, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3719342011696422520, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
       propertyPath: m_RootOrder
       value: 2
