@@ -448,13 +448,8 @@ Transform:
   - {fileID: 1303125179}
   - {fileID: 1590214512}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &741831736 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3719342011696422520, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
-  m_PrefabInstance: {fileID: 1111645815}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &761319945
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,12 +526,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761319945}
-  m_LocalRotation: {x: 0.22450411, y: 0.000000062835184, z: -0.000000013768883, w: 0.9744732}
-  m_LocalPosition: {x: 0, y: 3.9402313, z: -6.000201}
+  m_LocalRotation: {x: -0.000000013768883, y: 0.9744732, z: -0.22450411, w: -0.000000062835184}
+  m_LocalPosition: {x: 0, y: 3.9602313, z: 6.000201}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 741831736}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &997958470
 GameObject:
@@ -632,7 +627,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1111645815
 PrefabInstance:
@@ -679,7 +674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3719342011696422520, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3719342011696422520, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
       propertyPath: m_LocalPosition.x
@@ -837,13 +832,83 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: 0.038141225
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1701486096716433033, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
 --- !u!143 &1111645816 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 1369970005905417583, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
   m_PrefabInstance: {fileID: 1111645815}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1111645817 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3713545813488488620, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
+  m_PrefabInstance: {fileID: 1111645815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1111645818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111645817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 2
+  SprintSpeed: 5.335
+  RotationSmoothTime: 0.12
+  SpeedChangeRate: 10
+  LandingAudioClip: {fileID: 0}
+  FootstepAudioClips: []
+  FootstepAudioVolume: 0.5
+  JumpHeight: 1.2
+  Gravity: -15
+  JumpTimeout: 0.5
+  FallTimeout: 0.15
+  Grounded: 1
+  GroundedOffset: -0.14
+  GroundedRadius: 0.28
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  CinemachineCameraTarget: {fileID: 0}
+  TopClamp: 70
+  BottomClamp: -30
+  CameraAngleOverride: 0
+  LockCameraPosition: 0
+--- !u!114 &1111645819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111645817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: 0}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 761319947}
 --- !u!1 &1285395566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,7 +1190,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1590214508
 GameObject:
