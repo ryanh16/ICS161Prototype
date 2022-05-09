@@ -805,6 +805,8 @@ GameObject:
   - component: {fileID: 6156034434730472234}
   - component: {fileID: 6156034434730472233}
   - component: {fileID: 6156034434730472239}
+  - component: {fileID: 1701486096716433033}
+  - component: {fileID: 1369970005905417583}
   m_Layer: 0
   m_Name: Ragdoll Dummy
   m_TagString: Untagged
@@ -888,11 +890,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a14c9f04bc83d64d9f70f5c5469f508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdollEnabled: 0
   ragdollTriggerFeet: {fileID: 6156034434730472233}
   ragdollTriggerBody: {fileID: 3419123071307429515}
   ragdollTriggerHead: {fileID: 1731532908440860474}
   animator: {fileID: 0}
   corpseLifetime: 20
+--- !u!114 &1701486096716433033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713545813488488620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc667f36c225f14e8ac46a46dfb066d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  animator: {fileID: 0}
+  speed: 6
+  turnSmoothTime: 0.1
+--- !u!143 &1369970005905417583
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713545813488488620}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3713546974570541098
 GameObject:
   m_ObjectHideFlags: 0
