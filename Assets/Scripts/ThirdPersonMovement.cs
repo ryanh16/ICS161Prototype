@@ -37,7 +37,7 @@ public class ThirdPersonMovement : MonoBehaviour
             
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
 
-            characterController.Move(movement);
+            //characterController.Move(movement);
         }
 
         float velocityZ = Vector3.Dot(movement.normalized, transform.forward);
