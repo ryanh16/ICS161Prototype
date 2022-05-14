@@ -45,5 +45,15 @@ public class ThirdPersonMovement : MonoBehaviour
 
         animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
         animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log("is holdinf");
+            animator.SetBool("Running", true);
+        }
+        else
+        {
+            animator.SetBool("Running", false);
+        }
     }
 }

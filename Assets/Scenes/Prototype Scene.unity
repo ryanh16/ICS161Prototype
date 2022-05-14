@@ -532,7 +532,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!114 &761319949
 MonoBehaviour:
@@ -862,6 +862,14 @@ PrefabInstance:
     - target: {fileID: 6156034434126165732, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.038157646
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156034434730472234, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156034434730472234, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6156034435231666471, guid: 16489f97b4fc8084f96bf6d6359c6829, type: 3}
       propertyPath: m_ConnectedAnchor.x
