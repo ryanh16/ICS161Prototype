@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class RagdollToggle : MonoBehaviour
 {
-    public bool ragdollEnabled;
-    public BoxCollider ragdollTriggerFeet, ragdollTriggerBody, ragdollTriggerHead;
+    private bool ragdollEnabled;
     
     public Animator animator;
 
-    Collider[] colliders;
-    Rigidbody[] limbs;
+    public List<Collider> playerColliders;
+    public List<Rigidbody> playerRigidbodies;
+    public List<Collider> ragdollColliders;
+    public List<Rigidbody> ragdollRigidbodies;
     public float corpseLifetime = 10f;  //lifetime of a ragdoll
+
+    RagdollRecovery ragdollRecovery;
+    ThirdPersonMovement playerController;
 
     private void Awake() 
     {
-        ragdollTriggerFeet = GetComponent<BoxCollider>();
+        // ragdollTriggerFeet = GetComponent<BoxCollider>();
+        ragdollRecovery = GetComponentInChildren<RagdollRecovery>();
         animator = GetComponent<Animator>();
-        getRagdoll();
+        playerController = GetComponent<ThirdPersonMovement>();
+
+        sortCollidersAndRigidbodies();
         disableRagdoll();
     }
 
@@ -25,67 +32,138 @@ public class RagdollToggle : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    void getRagdoll()
+
+    public bool isRagdolled()
     {
-        colliders = GetComponentsInChildren<Collider>();
-        limbs = GetComponentsInChildren<Rigidbody>();
+        return ragdollEnabled;
     }
-    private void OnCollisionEnter(Collision col)
+
+    public Vector3 getRagdollLocation()
     {
-        //if collision with this object from this layer or tag, enables ragdoll
-        Debug.Log($"tag: {col.gameObject.CompareTag("Projectile")}, layer: {col.gameObject.layer}");
-        if(col.gameObject.CompareTag("Projectile")  || col.gameObject.layer == 7)
+        //gets location of ragdoll
+        return animator.GetBoneTransform(HumanBodyBones.Head).position;
+    }
+
+    //sorts colliders and rigidbodies, separating animated player from ragdolled player
+    void sortCollidersAndRigidbodies()
+    {
+        Collider[] allColliders = GetComponentsInChildren<Collider>();
+        Rigidbody[] allRigidbodies = GetComponentsInChildren<Rigidbody>();
+
+        foreach(Collider col in allColliders)
         {
-            enableRagdoll();
+            /*
+            if collider is not from parent transform, then it's considered a ragdoll collider. 
+            else considered player collider
+            */
+            if(col.transform != transform)
+            {
+                ragdollColliders.Add(col);
+            }
+            else
+            {
+                playerColliders.Add(col);
+            }
+        }
+
+        foreach(Rigidbody rb in allRigidbodies)
+        {
+            /*
+            if rb is not from parent transform, then it's considered a ragdoll rb. 
+            else considered player rb
+            */
+            if(rb.transform != transform)
+            {
+                ragdollRigidbodies.Add(rb);
+            }
+            else
+            {
+                playerRigidbodies.Add(rb);
+            }
         }
     }
+    // private void OnCollisionEnter(Collision col)
+    // {
+    //     //if collision with this object from this layer or tag, enables ragdoll
+    //     // Debug.Log($"tag: {col.gameObject.CompareTag("Projectile")}, layer: {col.gameObject.layer}");
+    //     if(col.gameObject.CompareTag("Projectile")  || col.gameObject.layer == 7)
+    //     {
+    //         enableRagdoll();
+    //     }
+    // }
+
+    void togglePhysics(bool enabled, List<Collider> colliderList, List<Rigidbody> rbList)
+    {
+        /*
+        if physics enabled, turns colliders on, sets rb kinematics to false (letting physics affect all objects in the list)
+        else does the opposite
+        */
+        foreach(Collider col in colliderList)
+        {
+            col.enabled = enabled;
+        }
+        foreach(Rigidbody rb in rbList)
+        {
+            rb.isKinematic = !enabled;
+        }
+    }
+
     public void enableRagdoll()
     {
+        ragdollEnabled = true;
+        playerController.enabled = false;
         //turns off animator first, before enabling the rest
         animator.enabled = false;
 
-        foreach(Collider col in colliders)
-        {
-            col.enabled = true;
-        }
-        foreach(Rigidbody limb in limbs)
-        {
-            limb.isKinematic = false;                  //isKinematic = false allows physics to affect rigidbodies (essentially enabling them)
-        }
+        // //disables charactercontroller
+        // CharacterController characterController = GetComponent<CharacterController>();
+        // characterController.enabled = false;
+        // playerController.enabled = false;
 
-        
-        ragdollTriggerFeet.enabled = false;
-        ragdollTriggerHead.enabled = false;
-        ragdollTriggerBody.enabled = false;
-        GetComponent<Rigidbody>().isKinematic = true;  //isKinematic = true stops physics from affecting rigidbodies (essentially disabling them)
+        //turns physics off for player before enabling ragdoll to prevent crazy collisions
+        togglePhysics(false, playerColliders, playerRigidbodies);
+        togglePhysics(true, ragdollColliders, ragdollRigidbodies);
 
-        Destroy(gameObject, corpseLifetime);
+
+        StartCoroutine(beginRagdollRecovery(2f));
+
+        //if ragdoll corpse wants to be destroyed after a set amount of time
+        if(corpseLifetime > 0)
+        {
+            Destroy(gameObject, corpseLifetime);
+        }
     }
 
     public void disableRagdoll()
     {
-        foreach(Collider col in colliders)
-        {
-            col.enabled = false;
-        }
-        foreach(Rigidbody limb in limbs)
-        {
-            limb.isKinematic = true;                    //isKinematic = true stops physics from affecting rigidbodies (essentially disabling them)
-        }
+        ragdollEnabled = false;
+        playerController.enabled = true;
+        //turns physics off for ragdoll before enabling player to prevent crazy collisions
+        togglePhysics(false, ragdollColliders, ragdollRigidbodies);
+        togglePhysics(true, playerColliders, playerRigidbodies);
+        
 
-        //turns on animator
+        //turns on animator after ragdoll disabled
         animator.enabled = true;
-        ragdollTriggerFeet.enabled = true;
-        ragdollTriggerHead.enabled = true;
-        ragdollTriggerBody.enabled = true;
-        GetComponent<Rigidbody>().isKinematic = false;  //isKinematic = false allows physics to affect rigidbodies (essentially enabling them)
+
+
+        // CharacterController characterController = GetComponent<CharacterController>();
+        // characterController.enabled = true;
+        // playerController.enabled = true;
     }
     void Update()
     {
-        //testing that the ragdoll still works
-        if(ragdollEnabled)
-            enableRagdoll();
-        // else
-        //     disableRagdoll();
+        // //testing that the ragdoll still works
+        // if(ragdollEnabled)
+        //     enableRagdoll();
+        // // else
+        // //     disableRagdoll();
+    }
+
+    IEnumerator beginRagdollRecovery(float time)
+    {
+        yield return new WaitForSeconds(time);
+        ragdollRecovery.state = RagdollRecovery.RagdollState.ragdolled;
+        // Debug.Log("State changed to blending");
     }
 }

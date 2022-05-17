@@ -547,7 +547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1694163852}
-  offset: {x: 0, y: 2.5, z: -4}
+  normalOffset: {x: 0, y: 2.5, z: -4}
+  ragdollOffset: {x: 0, y: 1, z: -4}
 --- !u!1 &997958470
 GameObject:
   m_ObjectHideFlags: 0

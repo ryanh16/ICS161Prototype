@@ -18,6 +18,7 @@ public class Explode : MonoBehaviour
         {
             // put stuff here to affect the character upon hit
             Debug.Log("hit something!");
+            applyForce();
         }
         // Stuff I used in physics demo scene
         /*if (collision.gameObject.GetComponent<Rigidbody>())
@@ -30,15 +31,37 @@ public class Explode : MonoBehaviour
         }*/
     }
 
+    /*
+    checks for ragdoll scripts within each detected object (used in the overlap sphere)
+    then enables ragdolls for them to allow for force to be applied to them
+    */
+    void checkForRagdolls(Collider[] colliders)
+    {
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            RagdollToggle ragdoll = colliders[i].GetComponent<RagdollToggle>();
+            if(ragdoll != null)
+            {
+                // Debug.Log("Enabling ragdoll");
+                ragdoll.enableRagdoll();
+            }
+        }
+    }
     void applyForce()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 2);
+
+        checkForRagdolls(colliders);
+        //after enabling ragdolls, refresh colliders array to find new colliders
+        colliders = Physics.OverlapSphere(transform.position, 2);
+
         foreach (Collider collider in colliders)
         {
             Rigidbody rb = collider.gameObject.GetComponent<Rigidbody>();
             if (rb)
             {
-                rb.AddExplosionForce(750f, transform.position, 2);
+                // Debug.Log($"Added explosion force to {rb.gameObject}");
+                rb.AddExplosionForce(3000f, transform.position, 2);
             }
         }
     }
