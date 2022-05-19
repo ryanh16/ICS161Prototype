@@ -48,7 +48,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            Debug.Log("is holdinf");
             animator.SetBool("Running", true);
         }
         else
