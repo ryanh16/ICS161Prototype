@@ -17,7 +17,6 @@ public class Explode : MonoBehaviour
         if (ragdollToggle)
         {
             // put stuff here to affect the character upon hit
-            Debug.Log("hit something!");
             applyForce();
         }
         // Stuff I used in physics demo scene
