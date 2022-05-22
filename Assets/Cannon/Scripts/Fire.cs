@@ -44,7 +44,7 @@ public class Fire : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("autoFire", 3, 5);
+        InvokeRepeating("autoFire", 3, 10);
     }
 
     private void autoFire()

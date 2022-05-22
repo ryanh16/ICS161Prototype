@@ -13,6 +13,8 @@ public class RagdollToggle : MonoBehaviour
     public List<Collider> ragdollColliders;
     public List<Rigidbody> ragdollRigidbodies;
     public float corpseLifetime = 10f;  //lifetime of a ragdoll
+    [Range(0,10)]
+    public float recoveryDelay = 2f;
 
     RagdollRecovery ragdollRecovery;
     
@@ -50,6 +52,11 @@ public class RagdollToggle : MonoBehaviour
     {
         //gets location of ragdoll
         return animator.GetBoneTransform(HumanBodyBones.Head).position;
+    }
+
+    public List<Rigidbody> getRagdollLimbs()
+    {
+        return ragdollRigidbodies;
     }
 
     //sorts colliders and rigidbodies, separating animated player from ragdolled player
@@ -132,7 +139,7 @@ public class RagdollToggle : MonoBehaviour
         togglePhysics(true, ragdollColliders, ragdollRigidbodies);
 
 
-        StartCoroutine(beginRagdollRecovery(2f));
+        StartCoroutine(beginRagdollRecovery(recoveryDelay));
 
         //if ragdoll corpse wants to be destroyed after a set amount of time
         if(corpseLifetime > 0)

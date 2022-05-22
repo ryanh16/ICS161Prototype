@@ -155,7 +155,6 @@ public class RagdollRecovery : MonoBehaviour
 					}
 				break;
 			case RagdollState.blending:
-
 					if (Time.time <= ragdollEndTime + standingTransitionTime)
 					{
 						//clear bools to stop animations
@@ -201,7 +200,7 @@ public class RagdollRecovery : MonoBehaviour
 	bool isFullyRecovered()
 	{
 		//checks if fully recovered by checking if the name matches with the anim state
-		Debug.Log($"name of anim after recovery: {recoveredStateName}, status = {animator.GetCurrentAnimatorStateInfo(0).IsName(recoveredStateName)} ");
+		// Debug.Log($"name of anim after recovery: {recoveredStateName}, status = {animator.GetCurrentAnimatorStateInfo(0).IsName(recoveredStateName)} ");
 		return animator.GetCurrentAnimatorStateInfo(0).IsName(recoveredStateName);
 	}
 

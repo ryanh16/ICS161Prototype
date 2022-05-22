@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
     [SerializeField]
     [Range(0, 1)]
     private float addtionalVel = 0f;
-    private float acc = 0.3f;
+    private float acc = 0.6f;
     private float dec = 0.6f;
     [SerializeField]
     private Animator animator;
