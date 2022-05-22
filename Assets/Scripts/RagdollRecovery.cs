@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class RagdollRecovery : MonoBehaviour {
-
+public class RagdollRecovery : MonoBehaviour 
+{
+	[Header("The name of the state that should be checked after recovery animation")]
+	public string recoveredStateName;
     //Possible states of the ragdoll
 	public enum RagdollState
 	{
@@ -181,7 +183,7 @@ public class RagdollRecovery : MonoBehaviour {
 					}
 					
 					//once blend value is done and state is back to original animation, set state to standing
-					if (blend_t_value == 0 && animator.GetCurrentAnimatorStateInfo(0).IsName("Locomotion"))
+					if (blend_t_value == 0 && isFullyRecovered())//&& animator.GetCurrentAnimatorStateInfo(0).IsName("Locomotion"))
 					{
 						// transform.position = new Vector3(transform.position.x, originalHeight, transform.position.z);
 						// transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, 0, transform.rotation.z));
@@ -196,4 +198,11 @@ public class RagdollRecovery : MonoBehaviour {
 		}
 	}
 	
+	bool isFullyRecovered()
+	{
+		//checks if fully recovered by checking if the name matches with the anim state
+		Debug.Log($"name of anim after recovery: {recoveredStateName}, status = {animator.GetCurrentAnimatorStateInfo(0).IsName(recoveredStateName)} ");
+		return animator.GetCurrentAnimatorStateInfo(0).IsName(recoveredStateName);
+	}
+
 }

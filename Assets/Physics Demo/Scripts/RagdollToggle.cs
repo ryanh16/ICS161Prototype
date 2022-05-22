@@ -15,14 +15,22 @@ public class RagdollToggle : MonoBehaviour
     public float corpseLifetime = 10f;  //lifetime of a ragdoll
 
     RagdollRecovery ragdollRecovery;
-    ThirdPersonMovement playerController;
+    
+
+    //playerController will either be a Controller or ThirdPersonMovement. comment out whenever
+    public Controller playerController;
+    // ThirdPersonMovement playerController;
 
     private void Awake() 
     {
         // ragdollTriggerFeet = GetComponent<BoxCollider>();
         ragdollRecovery = GetComponentInChildren<RagdollRecovery>();
         animator = GetComponent<Animator>();
-        playerController = GetComponent<ThirdPersonMovement>();
+        #region playerController (only enable one of these scripts and comment/uncomment them in the script)
+        //playerController = GetComponent<ThirdPersonMovement>();
+        playerController = GetComponent<Controller>();
+        #endregion
+        
 
         sortCollidersAndRigidbodies();
         disableRagdoll();
@@ -100,10 +108,12 @@ public class RagdollToggle : MonoBehaviour
         */
         foreach(Collider col in colliderList)
         {
+            // Debug.Log($"{col.name} set to {enabled}");
             col.enabled = enabled;
         }
         foreach(Rigidbody rb in rbList)
         {
+            // Debug.Log($"{rb.name} set to {!enabled}");
             rb.isKinematic = !enabled;
         }
     }
@@ -111,14 +121,11 @@ public class RagdollToggle : MonoBehaviour
     public void enableRagdoll()
     {
         ragdollEnabled = true;
+        
         playerController.enabled = false;
         //turns off animator first, before enabling the rest
         animator.enabled = false;
 
-        // //disables charactercontroller
-        // CharacterController characterController = GetComponent<CharacterController>();
-        // characterController.enabled = false;
-        // playerController.enabled = false;
 
         //turns physics off for player before enabling ragdoll to prevent crazy collisions
         togglePhysics(false, playerColliders, playerRigidbodies);
@@ -137,7 +144,11 @@ public class RagdollToggle : MonoBehaviour
     public void disableRagdoll()
     {
         ragdollEnabled = false;
+
+        // Debug.Log(playerController.enabled);
         playerController.enabled = true;
+
+        
         //turns physics off for ragdoll before enabling player to prevent crazy collisions
         togglePhysics(false, ragdollColliders, ragdollRigidbodies);
         togglePhysics(true, playerColliders, playerRigidbodies);
@@ -146,10 +157,9 @@ public class RagdollToggle : MonoBehaviour
         //turns on animator after ragdoll disabled
         animator.enabled = true;
 
-
-        // CharacterController characterController = GetComponent<CharacterController>();
-        // characterController.enabled = true;
-        // playerController.enabled = true;
+        //resets anim values for the controller (to prevent movement drifting after recovering from ragdoll)
+        playerController.resetControllerAnimValues();
+        
     }
     void Update()
     {

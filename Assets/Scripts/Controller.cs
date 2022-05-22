@@ -25,7 +25,16 @@ public class Controller : MonoBehaviour
     private float turnSmoothTime = 0.1f;
     private float smoothVelocity;
 
-    // Update is called once per frame
+
+    //reset anim values (after ragdolling) so player recovers in idle position
+    public void resetControllerAnimValues()
+    {
+        animator.SetFloat("Velocity", 0);
+        animator.SetFloat("AdditionalVel", 0);
+        animator.SetBool("isCrouching", false);
+    }
+
+
     void Update()
     {
         /*if (animator.GetBool("isCrouching"))
