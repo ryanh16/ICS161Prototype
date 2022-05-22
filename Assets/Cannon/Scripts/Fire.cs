@@ -41,4 +41,16 @@ public class Fire : MonoBehaviour
             }
         }
     }
+
+    private void Start()
+    {
+        InvokeRepeating("autoFire", 3, 5);
+    }
+
+    private void autoFire()
+    {
+        GameObject instance = Instantiate(bullet, firePos.position, firePos.rotation);
+
+        instance.GetComponent<Rigidbody>().velocity = -firePos.up * 20;
+    }
 }
